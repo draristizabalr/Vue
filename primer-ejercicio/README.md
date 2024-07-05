@@ -1,4 +1,4 @@
-# primer-proyecto-vue
+# primer-ejercicio
 
 This template should help get you started developing with Vue 3 in Vite.
 
@@ -32,30 +32,16 @@ pnpm dev
 pnpm build
 ```
 
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-pnpm test:unit
-```
-
-### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
-
-```sh
-pnpm test:e2e:dev
-```
-
-This runs the end-to-end tests against the Vite development server.
-It is much faster than the production build.
-
-But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
-
-```sh
-pnpm build
-pnpm test:e2e
-```
-
 ### Lint with [ESLint](https://eslint.org/)
 
 ```sh
 pnpm lint
 ```
+### Proyecto
+
+Crear una plataforma con información de profesores con sus respectivas especialidades en el campo de la enseñanza
+
+1) Crear formulario para el ingreso de la información de los profesores.
+2) Informacion profesores: nombres, apellidos, DNI, asignaturas.
+3) Agregar un checkbox que indique si el profesor entregó los documentos para poder entrar en la plataforma.
+  
