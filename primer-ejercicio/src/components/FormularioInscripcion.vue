@@ -26,13 +26,13 @@ const emit = defineEmits(['enviarProfesor'])
 
 const listAsignaturas:Array<string> = [
   'Literatura',
-  'Matematicas',
-  'Ingles',
+  'Matemáticas',
+  'Inglés',
   'Ciencias Sociales',
   'Física',
   'Química',
   'Estadística',
-  'Musica',
+  'Música',
   'Historia del Arte'
 ]
 
@@ -45,7 +45,11 @@ let chequed: Ref<boolean> = ref(false)
 const enviarFormulario:Function = (event: Event) => {
   event.preventDefault()
 
-  emit('enviarProfesor', { nombres: nombres.value, apellidos: apellidos.value, asignaturas: asignaturas.value })
+  emit('enviarProfesor', {
+    nombres: nombres.value,
+    apellidos: apellidos.value,
+    DNI: DNI.value,
+    asignaturas: asignaturas.value })
 
   reiniciarFormulario(event)
 }
@@ -55,6 +59,7 @@ const reiniciarFormulario:Function = (event: Event) => {
 
   nombres.value = '' 
   apellidos.value = ''
+  DNI.value = ''
   asignaturas.value = []
   chequed.value = false
 }

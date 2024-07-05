@@ -14,7 +14,7 @@
 <script lang="ts" setup>
 const props = defineProps(["listaProfesores"])
 
-const titulos:Array<string> = ['Nombre', 'Apellido', 'Asignaturas']
+const titulos:Array<string> = ['Nombre', 'Apellido', 'DNI', 'Asignaturas']
 </script>
 
 <style scoped>

@@ -14,16 +14,31 @@ import { ref, type Ref } from 'vue'
 import FormularioInscripcion from './components/FormularioInscripcion.vue'
 import TablaProfesores from './components/TablaProfesores.vue'
 
-const listaProfesores:Ref<Array<{ nombres: string, apellidos: string, asignaturas: string }>> = ref([])
+interface ProfesorType {
+  nombres: string;
+  apellidos: string;
+  DNI: string;
+  asignaturas: string;
+}
 
-const parseInfo:Function = (informacion:{ nombres: string, apellidos: string, asignaturas: Array<string> }) => {
-  const { nombres, apellidos, asignaturas } = informacion
+interface InformacionType {
+  nombres: string;
+  apellidos: string;
+  DNI: string;
+  asignaturas: Array<string>;
+}
+
+const listaProfesores:Ref<Array<ProfesorType>> = ref([])
+
+const parseInfo:Function = (informacion:InformacionType) => {
+  const { nombres, apellidos, DNI, asignaturas } = informacion
 
   const asignaturasParsed:string = asignaturas.reduce((a: string, b: string) => a + ' - ' + b)
 
   listaProfesores.value.push({
     nombres,
     apellidos,
+    DNI,
     asignaturas: asignaturasParsed
   })
 }
@@ -31,9 +46,8 @@ const parseInfo:Function = (informacion:{ nombres: string, apellidos: string, as
 
 <style scoped>
 .container {
-  height: 100%;
+  max-height: 100%;
   width: 100%;
-  padding: 1em;
   display: grid;
   grid-template-columns: 25% 1fr;
   grid-template-rows: 1fr;
