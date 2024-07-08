@@ -11,7 +11,10 @@
 
 <script lang="ts" setup>
 import { ref, type Ref } from 'vue'
-defineProps(["title", "content"])
+defineProps({
+  "title": String,
+  "content": String,
+})
 const emit = defineEmits(["showMsg"])
 
 const msg: Ref<string> = ref('')
