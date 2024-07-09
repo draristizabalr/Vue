@@ -1,8 +1,10 @@
 <template>
   <div>
     <input type="text" v-model="message" />
-    <h3>{{ message }}</h3>
-    <h3>{{ reverse }}</h3>
+    <h3 v-custom-size:lg>{{ message }}</h3>
+    <h3 v-font-size>{{ reverse }}</h3>
+    <h3 v-custom-fount.lg.blue>{{ reverse }}</h3>
+
   </div>
 </template>
 

@@ -1,24 +1,20 @@
 <template>
   <div class="container">
-    <FormularioProducto 
-      @enviar-producto="takeProduct($event)"
-    />
-    <TablaProductos
-      :product-list="productsList"
-    />
+    <FormularioProducto @enviar-producto="takeProduct($event)" />
+    <TablaProductos :product-list="productsList" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { type Ref, ref } from 'vue';
+import { type Ref, ref } from 'vue'
 import FormularioProducto from './components/FormularioProducto.vue'
 import TablaProductos from './components/TablaProductos.vue'
 
-let productsList:Ref<Array<{ name: string, price: number }>> = ref([])
+let productsList: Ref<Array<{ name: string; price: number }>> = ref([])
 
-const takeProduct: Function = (values: Ref<{ name: string, price: number }>) => {
+const takeProduct: Function = (values: Ref<{ name: string; price: number }>) => {
   const { name, price } = values.value
-  productsList.value.push({ name, price })  
+  productsList.value.push({ name, price })
 }
 </script>
 

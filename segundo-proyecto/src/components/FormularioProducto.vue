@@ -2,9 +2,21 @@
   <form class="formulario-productos" @submit="handleSubmit($event)">
     <h3>Formulario de productos</h3>
     <label for="name">Nombre del producto</label>
-    <input type="text" name="name" id="name" placeholder="Manzana, Mesa, Televisor, ..." v-model="values.name" />
+    <input
+      type="text"
+      name="name"
+      id="name"
+      placeholder="Manzana, Mesa, Televisor, ..."
+      v-model="values.name"
+    />
     <label for="price">Precio del producto</label>
-    <input type="number" name="price" id="price" placeholder="3000, 200000, 1500000" v-model="values.price" />
+    <input
+      type="number"
+      name="price"
+      id="price"
+      placeholder="3000, 200000, 1500000"
+      v-model="values.price"
+    />
     <div class="submit-button">
       <button type="submit">Agregar producto</button>
     </div>
@@ -13,12 +25,12 @@
 
 <script lang="ts" setup>
 import { ref, type Ref } from 'vue'
-const emit = defineEmits(["enviarProducto"])
+const emit = defineEmits(['enviarProducto'])
 interface ValuesType {
-  name: string,
-  price: number,
+  name: string
+  price: number
 }
-let values:Ref<ValuesType> = ref({
+let values: Ref<ValuesType> = ref({
   name: '',
   price: 0
 })
@@ -28,7 +40,6 @@ const handleSubmit: Function = (event: Event) => {
 
   emit('enviarProducto', values)
 }
-
 </script>
 
 <style scoped>
@@ -53,7 +64,7 @@ const handleSubmit: Function = (event: Event) => {
   color: blue;
   background-color: aqua;
 }
-.formulario-productos input{
+.formulario-productos input {
   max-height: 1.5em;
 }
 

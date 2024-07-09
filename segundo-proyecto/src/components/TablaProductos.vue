@@ -23,32 +23,33 @@ const props = defineProps({
 })
 
 interface Product {
-  name: string,
+  name: string
   price: number
 }
 
 interface ProductComplite {
-  name?: string;
-  price?: number;
-  taxes?: number;
-  totalValue?: number;
+  name?: string
+  price?: number
+  taxes?: number
+  totalValue?: number
 }
 
-const titulos:Array<string> = ['ID Product', 'Nombre', 'Precio', 'Valor impuestos', 'Valor total']
+const valorImpuestos: number = 10
 
-const productListComplited: ComputedRef = computed(():ProductComplite[] => {
-  const productListComplited = props.productList!.map((product: Product):ProductComplite => {
+const titulos: Array<string> = ['ID Product', 'Nombre', 'Precio', 'Valor impuestos', 'Valor total']
+
+const productListComplited: ComputedRef = computed((): ProductComplite[] => {
+  const productListComplited = props.productList!.map((product: Product): ProductComplite => {
     let { name, price } = product
-      return {
-          name: name,
-          price: price,
-          taxes: Math.fround(price * 0.1),
-          totalValue: Math.fround(price * 1.1)
-        }
-    })
-    return productListComplited
+    return {
+      name: name,
+      price: price,
+      taxes: Math.fround(price * valorImpuestos / 100),
+      totalValue: Math.fround(price * (valorImpuestos / 100 + 1))
+    }
   })
-
+  return productListComplited
+})
 </script>
 
 <style scoped>
@@ -58,7 +59,7 @@ const productListComplited: ComputedRef = computed(():ProductComplite[] => {
   margin-top: 6em;
 }
 
-.tabla-productos *{
+.tabla-productos * {
   border: 1px solid #666;
   text-align: center;
 }
