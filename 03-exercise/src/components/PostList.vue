@@ -18,16 +18,24 @@ onMounted(async (): Promise<void> => {
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+$red: #ff0000;
 * {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 h1, .post-list {
   text-align: center;
+  li:hover {
+    background-color: darken(#fff, 20%);
+    cursor: pointer;
+  }
 }
 li {
   border: 1px solid #999;
   padding: 0.5em 0;
   list-style-type: none;
+  color: $red;
 }
+
+
 </style>
