@@ -1,9 +1,9 @@
 <template>
-  <PostList />
+  <RouterView />
 </template>
 
 <script lang="ts" setup>
-import PostList from './components/PostList.vue'
+import { RouterView } from 'vue-router';
 </script>
 
 <style scoped>
