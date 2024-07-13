@@ -6,21 +6,21 @@ class PostService {
   private URL: string
   private post: Ref<IPost>
 
-  constructor () {
+  constructor() {
     this.posts = ref<IPost[]>([])
     this.URL = 'https://jsonplaceholder.typicode.com/posts'
     this.post = ref<IPost>({})
   }
 
-  getPosts (): Ref<IPost[]> {
+  getPosts(): Ref<IPost[]> {
     return this.posts
   }
 
-  getPost (): Ref<IPost> {
+  getPost(): Ref<IPost> {
     return this.post
-  }  
+  }
 
-  async fetchAll (): Promise<void> {
+  async fetchAll(): Promise<void> {
     try {
       const response = await fetch(this.URL)
       const json = await response.json()
@@ -31,13 +31,13 @@ class PostService {
     }
   }
 
-  async fetchPost (id: string | string[]): Promise<void> {
+  async fetchPost(id: string | string[]): Promise<void> {
     try {
       const response = await fetch(`${this.URL}/${id}`)
       const json = await response.json()
 
       this.post.value = await json
-    } catch (error){
+    } catch (error) {
       console.log(error)
     }
   }
