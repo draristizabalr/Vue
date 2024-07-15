@@ -14,7 +14,7 @@ const router = createRouter({
       path: '/auth',
       name: 'auth',
       component: AuthView
-    },
+    }
   ]
 })
 
