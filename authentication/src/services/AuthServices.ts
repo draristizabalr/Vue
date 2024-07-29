@@ -30,14 +30,12 @@ class AuthService {
       })
       const result = await response.json()
 
-      console.log(response.status)
-      console.log(result.status)
-
       if (response.status !== 200) {
         this.error.value = 'Login failed'
         return false
       } else {
         this.jwt.value = result.token
+        $cookies.set('auth', result.publicUser.token)
         return true
       }
     } catch (error) {

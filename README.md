@@ -17,3 +17,5 @@ La lista de reproduccion del curso es https://www.youtube.com/watch?v=LAozf_wDej
 10) Manejo de rutas.
 11) Procesos de autenticación.
 12) Estados globales con Vuex.
+13) Estado globales con Pinia.
+14) Cookies y sessiones.

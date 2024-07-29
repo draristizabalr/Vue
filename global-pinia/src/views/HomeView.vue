@@ -6,10 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-  import { useCounterStore } from '@/store/counter'
-  const store = useCounterStore()
+import { useCounterStore } from '@/store/counter'
+const store = useCounterStore()
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

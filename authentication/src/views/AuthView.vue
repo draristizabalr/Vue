@@ -18,6 +18,7 @@
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
     </form>
+    <h3 class="token">{{ infoUser }}</h3>
   </div>
 </template>
 
@@ -27,10 +28,12 @@ import AuthService from '@/services/AuthServices'
 
 let email: Ref<string> = ref('')
 let password: Ref<string> = ref('')
+let infoUser: Ref<string> = ref('')
 
 const authUser = async () => {
   const auth = new AuthService()
   const success = await auth.login(email.value, password.value)
+  infoUser.value = $cookies.get('auth')
 
   if (success) {
     alert('Exito')
@@ -40,4 +43,11 @@ const authUser = async () => {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.container {
+  width: 100vw;
+}
+.token {
+  word-wrap: break-word;
+}
+</style>
