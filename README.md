@@ -19,3 +19,4 @@ La lista de reproduccion del curso es https://www.youtube.com/watch?v=LAozf_wDej
 12) Estados globales con Vuex.
 13) Estado globales con Pinia.
 14) Cookies y sessiones.
+15) Rutas protegidas.
