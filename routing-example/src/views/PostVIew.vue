@@ -3,10 +3,10 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 import { useRoute } from 'vue-router';
 
-let postId = ref('')
+let postId: Ref<string> = ref('')
 
 onMounted(() => {
   const route = useRoute()
