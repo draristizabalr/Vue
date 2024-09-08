@@ -4,6 +4,7 @@ from sqlalchemy.orm import sessionmaker
 
 SQLALCHEMY_DATABASE_URL = "postgresql://postgres:admin@localhost:5432/Exercise04VueClass"
 
+
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, bind=engine)

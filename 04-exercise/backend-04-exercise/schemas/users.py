@@ -11,5 +11,4 @@ class User(BaseModel):
     id: int
     name: str
     email: str
-    hash_password: str
-    
+    password: str
