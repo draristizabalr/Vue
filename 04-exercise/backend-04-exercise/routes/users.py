@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from config.database import SessionLocal, engine
 from models.users import Base
-from schemas.users import User, UserBase, UserCreate
+from schemas.users import User, UserCreate
 
 from functions.users import get_users, get_user_by_id, get_user_by_email, create_user, delete_user
 
@@ -26,22 +26,6 @@ def get_db():
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = get_users(db, skip=skip, limit=limit)
     return users
-
-@users.get("/user_id/{id}", response_model=User)
-def read_user_by_id(id: int, db: Session = Depends(get_db)):
-    user = get_user_by_id(db=db, user_id=id)
-    if user:
-        return user
-            
-    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="ID user not found")
-
-@users.get("/user_email/{email}", response_model=User)
-def read_user_by_email(email: str, db: Session = Depends(get_db)):
-    user = get_user_by_email(db=db, email=email)
-    if user:
-        return user
-                
-    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Email user not found")
 
 @users.post("/", response_model=User)
 def add_user(user: UserCreate, db: Session = Depends(get_db)):
