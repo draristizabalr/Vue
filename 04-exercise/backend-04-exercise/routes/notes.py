@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from config.database import SessionLocal, engine
-from models.notes import Base
+from models import Base
 from schemas.notes import Note, NoteCreate
 
 from functions.notes import get_notes, get_note_by_user_id, get_note_by_user_id_and_title, create_note

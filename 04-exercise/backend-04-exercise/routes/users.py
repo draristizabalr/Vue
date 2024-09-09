@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 from config.database import SessionLocal, engine
-from models.users import Base
+from models import Base
 from schemas.users import User, UserCreate
 
 from functions.users import get_users, get_user_by_id, get_user_by_email, create_user, delete_user
