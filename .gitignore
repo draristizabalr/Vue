@@ -5,6 +5,7 @@
 03-exercise/node_modules
 04-exercise/node_modules
 04-exercise/backend-04-exercise/.venv
+04-exercise/backend-04-exercise/.env
 
 authentication/node_modules
 authentication-cloud/node_modules

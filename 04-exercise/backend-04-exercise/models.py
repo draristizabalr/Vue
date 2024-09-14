@@ -9,6 +9,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String(255))
     email = Column(String(255), unique=True)
+    username = Column(String(255), unique=True)
     password = Column(String(255))
     
     notes_id = relationship("Note", back_populates="user")

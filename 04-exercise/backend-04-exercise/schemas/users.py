@@ -6,14 +6,19 @@ class UserBase(BaseModel):
     email: str
     
 class UserCreate(UserBase):
+    username: str
     password: str
     
-class User(UserBase):
+class User(UserCreate):
     id: int
-    name: str
-    email: str
-    password: str
     notes_id: list[Note]
     
     class Config:
         from_attributes = True
+        
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    
+class TokenData(BaseModel):
+    username: str | None = None
