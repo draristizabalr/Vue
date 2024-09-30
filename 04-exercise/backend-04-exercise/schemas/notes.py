@@ -5,10 +5,10 @@ class NoteBase(BaseModel):
     description: str
     
 class NoteCreate(NoteBase):
-    user_id: int
-
+    pass
 class Note(NoteCreate):
     id: int
+    user_id: int
     
     class Config:
         from_attributes = True

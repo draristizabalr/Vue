@@ -13,11 +13,11 @@ notes = APIRouter(
     dependencies=[Depends(verify_user)]
 )
 
-@notes.get("/")
+@notes.get("/all_notes")
 def read_notes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     return get_notes(db=db, skip=skip, limit=limit)
 
-@notes.get("/user_notes")
+@notes.get("/")
 async def read_notes_by_user(token: Annotated[str, Cookie()], skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     
     user = await get_current_user(token=token, db=db)
@@ -28,10 +28,13 @@ async def read_notes_by_user(token: Annotated[str, Cookie()], skip: int = 0, lim
     return get_note_by_user_id(db=db, user_id=user.id, skip=skip, limit=limit) #type: ignore
 
 @notes.post("/")
-def create_note_db(note: NoteCreate, db: Session = Depends(get_db)):
-    find_note = get_note_by_user_id_and_title(db=db, title=note.title, user_id=note.user_id)
+async def create_note_db(token: Annotated[str, Cookie()], note: NoteCreate, db: Session = Depends(get_db)):
+    
+    user = await get_current_user(token=token, db=db)
+    
+    find_note = get_note_by_user_id_and_title(db=db, title=note.title, user_id=user.id) #type: ignore
     
     if find_note:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Title note already exist")
     
-    return create_note(db=db, note=note)
+    return create_note(db=db, note=note, user_id=user.id) #type: ignore

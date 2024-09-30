@@ -10,7 +10,7 @@ from jwt.exceptions import InvalidTokenError
 from os import getenv
 from dotenv import load_dotenv
 
-from schemas.users import TokenData
+from schemas.users import TokenData, User
 
 load_dotenv()
 

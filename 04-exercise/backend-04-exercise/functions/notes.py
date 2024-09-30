@@ -12,8 +12,8 @@ def get_note_by_user_id(db: Session, user_id: int, skip: int = 0, limit: int = 1
 def get_note_by_user_id_and_title(db: Session, title: str, user_id: int):
     return db.query(Note).filter(Note.title == title, Note.user_id == user_id).first()
 
-def create_note(db: Session, note: NoteCreate):
-    db_note = Note(**note.model_dump())
+def create_note(db: Session, user_id: int, note: NoteCreate):
+    db_note = Note(title=note.title, description=note.description, user_id=user_id )
     db.add(db_note)
     db.commit()
     db.refresh(db_note)
