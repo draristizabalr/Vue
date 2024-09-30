@@ -1,9 +1,12 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from models import Base
+
+from config.database import engine
 from routes.users import users
 from routes.notes import notes
 from routes.auth import auth
-
+        
 app = FastAPI()
 
 origins = [
@@ -21,9 +24,15 @@ app.add_middleware(
     allow_headers=["*"]
 )
 
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as error:
+    print('Error connecting with database')
+    exit()
+
+app.include_router(auth)
 app.include_router(users)
 app.include_router(notes)
-app.include_router(auth)
 
 @app.get('/')
 async def root():

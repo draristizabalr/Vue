@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 
 from models import Note
-from schemas.notes import NoteBase, NoteCreate
+from schemas.notes import NoteCreate
 
 def get_notes(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Note).offset(skip).limit(limit).all()
@@ -28,3 +28,14 @@ def delete_note(db: Session, title: str, user_id: int):
     db.commit()
     
     return note
+
+def delete_user_notes(db: Session, user_id: int):
+    notes = get_note_by_user_id(db=db, user_id=user_id)
+    if not notes:
+        return
+    
+    for note in notes:
+        db.delete(note)
+        print(f"Deleted note title: {note.title}")
+    
+    db.commit()

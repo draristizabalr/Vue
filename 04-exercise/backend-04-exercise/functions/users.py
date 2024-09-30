@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 from passlib.context import CryptContext
 
 from models import User
-from schemas.users import UserBase, UserCreate
+from schemas.users import UserCreate
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
@@ -12,7 +12,9 @@ def get_users(db: Session, skip: int = 0, limit: int = 100):
 def get_user_by_id(db: Session, user_id: int):
     return db.query(User).filter(User.id == user_id).first()
 
-def get_user_by_username(db: Session, username: str):
+def get_user_by_username(db: Session, username: str | None):
+    if not username:
+        return
     return db.query(User).filter(User.username == username).first()
 
 def get_user_by_email(db: Session, email: str):
