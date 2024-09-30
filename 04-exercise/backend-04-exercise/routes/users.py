@@ -5,12 +5,12 @@ from config.database import get_db
 from schemas.users import User, UserCreate
 from functions.users import get_users, get_user_by_email, create_user, delete_user
 from functions.notes import delete_user_notes
-from functions.auth import oauth2_scheme
+from functions.auth import verify_user
 
 users = APIRouter(
     prefix="/users",
     tags=["authentication", "users"],
-    dependencies=[Depends(oauth2_scheme)]
+    dependencies=[Depends(verify_user)]
 )
 
 @users.get("/", response_model=list[User])

@@ -1,4 +1,4 @@
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, status, Cookie
 from fastapi.security import OAuth2PasswordBearer
 from datetime import timedelta, datetime, timezone
 from typing import Annotated
@@ -37,7 +37,7 @@ def authenticate_user(username: str, password: str, db: Session = Depends(get_db
             detail="Username or password are not correct",
             headers={ "WWW-Authenticate": "Bearer" }
         )
-    
+
     return user
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None):
@@ -53,8 +53,20 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     
     return encoded_jwt
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
-    print(token)
+async def verify_user(token: Annotated[str, Cookie()], db: Session = Depends(get_db)):
+    user = await get_current_user(token=token, db=db)
+    
+    if not user:
+        raise HTTPException( 
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="You are not authorized",
+            headers={ "WWW-Authenticate": "Bearer" }
+        )
+        
+    return user
+    
+
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session):
     credential_exceptions = HTTPException( 
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="You are not authorized",

@@ -1,8 +1,7 @@
 from datetime import timedelta
 from typing import Annotated
-from fastapi import Depends, APIRouter, HTTPException, status, Form
+from fastapi import Depends, APIRouter, HTTPException, status, Form, Response
 from fastapi.security import OAuth2PasswordRequestForm
-from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 
 from config.database import get_db
@@ -14,8 +13,9 @@ auth = APIRouter(prefix="/auth", tags=["oauth", "users", "jwt"])
 
 @auth.post("/login")
 async def login_for_access_token(
-        form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
-        db: Session = Depends(get_db)
+    response: Response,
+    form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
+    db: Session = Depends(get_db)
 ):
     user = authenticate_user(db=db, username=form_data.username, password=form_data.password)
     
@@ -31,13 +31,9 @@ async def login_for_access_token(
         data={ "sub": user.username }, expires_delta=access_token_expires
     )
     
-    response = JSONResponse(
-        content={ "access_token": access_token, "token_type": "bearer"}
-    )
+    response.set_cookie(key="token", value=access_token)
     
-    response.headers["WWW-Authenticate"] = f"Bearer {access_token}"
-    
-    return response
+    return Token(access_token=access_token, token_type="bearer")
 
 
 @auth.post("/register")
