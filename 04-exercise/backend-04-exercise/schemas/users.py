@@ -2,12 +2,12 @@ from pydantic import BaseModel
 from schemas.notes import Note
 
 class UserBase(BaseModel):
-    name: str
-    email: str
-    
-class UserCreate(UserBase):
     username: str
     password: str
+    
+class UserCreate(UserBase):
+    name: str
+    email: str
     
 class User(UserCreate):
     id: int

@@ -23,18 +23,18 @@ oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
-def authenticate_user(username: str, password: str, db: Session = Depends(get_db)):
+def authenticate_user(username: str, password: str, db: Session):
     user = get_user_by_username(db=db, username=username)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Username or password are not correct",
+            detail="El nombre de usuario o la contraseña son incorrectas",
             headers={ "WWW-Authenticate": "Bearer" }
         )
     if not verify_password(plain_password=password, hashed_password=user.password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Username or password are not correct",
+            detail="El nombre de usuario o la contraseña son incorrectas",
             headers={ "WWW-Authenticate": "Bearer" }
         )
 
@@ -51,22 +51,9 @@ def create_access_token(data: dict, expires_delta: timedelta | None = None):
     
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     
-    return encoded_jwt
+    return encoded_jwt    
 
-async def verify_user(token: Annotated[str, Cookie()], db: Session = Depends(get_db)):
-    user = await get_current_user(token=token, db=db)
-    
-    if not user:
-        raise HTTPException( 
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="You are not authorized",
-            headers={ "WWW-Authenticate": "Bearer" }
-        )
-        
-    return user
-    
-
-async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session):
+async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)], db: Session = Depends(get_db)):
     credential_exceptions = HTTPException( 
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="You are not authorized",

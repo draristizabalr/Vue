@@ -2,18 +2,17 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from config.database import get_db
-from schemas.users import User, UserCreate
-from functions.users import get_users, get_user_by_email, create_user, delete_user
+from functions.users import get_users, get_user_by_email, delete_user
 from functions.notes import delete_user_notes
-from functions.auth import verify_user
+from functions.auth import get_current_user
 
 users = APIRouter(
     prefix="/users",
     tags=["authentication", "users"],
-    dependencies=[Depends(verify_user)]
+    dependencies=[Depends(get_current_user)]
 )
 
-@users.get("/", response_model=list[User])
+@users.get("/")
 def read_users(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     users = get_users(db, skip=skip, limit=limit)
     return users
